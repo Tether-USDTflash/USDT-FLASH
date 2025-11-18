@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wallet - USDT Flash</title>
+    <link rel="icon" type="image/png" href="../img/wallet.png">
+    <link rel="stylesheet" href="../css/wallet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.css">
+</head>
+<body>
+    <div class="wallet-container">
+        <!-- Header -->
+        <header class="wallet-header">
+            <button class="back-btn" onclick="window.location.href='../index.html'">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <h1>My Wallet</h1>
+            <div class="header-actions">
+                <button class="scan-btn" id="scanBtn">
+                    <i class="fas fa-qrcode"></i>
+                </button>
+                <button class="settings-btn" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <div class="balance-header">
+                <div>
+                    <span class="balance-label">Total Balance</span>
+                    <div class="portfolio-change">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+2.5%</span>
+                    </div>
+                </div>
+                <button class="eye-btn" id="toggleBalance">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="balance-amount" id="balanceAmount">
+                <span class="amount">0.00</span>
+                <span class="currency">USDT</span>
+            </div>
+            <div class="balance-usd">≈ $<span id="usdAmount">0.00</span></div>
+            
+            <!-- Mini Chart -->
+            <div class="mini-chart">
+                <canvas id="balanceChart"></canvas>
+            </div>
+            
+            <div class="quick-actions">
+                <button class="action-btn deposit-btn" id="depositBtn" disabled style="opacity: 0.5; cursor: not-allowed;">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Deposit</span>
+                </button>
+                <button class="action-btn withdraw-btn" id="withdrawBtn">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>Withdraw</span>
+                </button>
+                <button class="action-btn transfer-btn" id="transferBtn" disabled style="opacity: 0.5; cursor: not-allowed;">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Transfer</span>
+                </button>
+                <button class="action-btn swap-btn" id="swapBtn">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Swap</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Live Prices Section -->
+        <div class="tokens-section" style="margin-bottom: 20px;">
+            <div class="section-header">
+                <h2>Live Prices</h2>
+                <div class="live-indicator" style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 8px; height: 8px; background: #ef4444; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                    <span style="font-size: 12px; color: #ef4444; font-weight: 600;">LIVE</span>
+                </div>
+            </div>
+            <div class="tokens-list">
+                <div class="token-item" style="cursor: default;">
+                    <div class="token-icon">
+                        <img src="https://assets.coingecko.com/coins/images/29850/small/pepe-token.jpeg" alt="PEPE">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Pepe</div>
+                        <div class="token-symbol">PEPE</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount" id="pepe-price">$0.00001845</div>
+                        <div class="token-value" id="pepe-change" style="color: #22c55e;">+0.00%</div>
+                    </div>
+                </div>
+                <div class="token-item" style="cursor: default;">
+                    <div class="token-icon">
+                        <img src="https://assets.coingecko.com/coins/images/5/small/dogecoin.png" alt="DOGE">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Dogecoin</div>
+                        <div class="token-symbol">DOGE</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount" id="doge-price">$0.38</div>
+                        <div class="token-value" id="doge-change" style="color: #22c55e;">+0.00%</div>
+                    </div>
+                </div>
+                <div class="token-item" style="cursor: default;">
+                    <div class="token-icon">
+                        <img src="https://assets.coingecko.com/coins/images/11939/small/shiba.png" alt="SHIB">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Shiba Inu</div>
+                        <div class="token-symbol">SHIB</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount" id="shib-price">$0.00002245</div>
+                        <div class="token-value" id="shib-change" style="color: #22c55e;">+0.00%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tokens List -->
+        <div class="tokens-section">
+            <div class="section-header">
+                <h2>Assets</h2>
+                <button class="add-token-btn" id="addTokenBtn">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div class="tokens-list" id="tokensList">
+                <!-- USDT Flash Token -->
+                <div class="token-item" data-token="USDT-FLASH">
+                    <div class="token-icon flash-token">
+                        <img src="../img/usdt_cryptocurrencies_icon_188337.png" alt="USDT Flash">
+                        <span class="flash-badge">⚡</span>
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">USDT Flash <span class="flash-note">(1:1 = USDT)</span></div>
+                        <div class="token-symbol">USDT-F</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+                
+                <!-- USDT Token -->
+                <div class="token-item" data-token="USDT">
+                    <div class="token-icon">
+                        <img src="../img/6180cdb6-8480-4a3c-a8a9-8a193a89fc5e.png" alt="USDT">
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Tether USD</div>
+                        <div class="token-symbol">USDT</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount">0.00</div>
+                        <div class="token-value">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions -->
+        <div class="transactions-section">
+            <div class="section-header">
+                <h2>Recent Transactions</h2>
+                <button class="filter-btn">
+                    <i class="fas fa-filter"></i>
+                </button>
+            </div>
+            <div class="transactions-list" id="transactionsList">
+                <div class="empty-state">
+                    <i class="fas fa-receipt"></i>
+                    <p>No transactions yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div class="modal" id="depositModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Deposit USDT</h2>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="deposit-steps">
+                <!-- Step 1: Select Network -->
+                <div class="step active" id="step1">
+                    <h3>Select Network</h3>
+                    <div class="networks-grid">
+                        <div class="network-card" data-network="TRC20">
+                            <img src="../img/TRC 20.png" alt="TRC20">
+                            <div class="network-info">
+                                <span class="network-name">TRC20</span>
+                                <span class="network-fee">USDT Only</span>
+                            </div>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="network-card" data-network="ERC20">
+                            <img src="../cryptologos/ethereum-eth-logo.png" alt="ERC20">
+                            <div class="network-info">
+                                <span class="network-name">ERC20</span>
+                                <span class="network-fee">USDT Only</span>
+                            </div>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="network-card" data-network="BEP20">
+                            <img src="../cryptologos/binance-coin-bnb-logo.png" alt="BEP20">
+                            <div class="network-info">
+                                <span class="network-name">BEP20</span>
+                                <span class="network-fee">USDT Only</span>
+                            </div>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <button class="next-btn" id="nextStep1" disabled>Next</button>
+                </div>
+
+                <!-- Step 2: Enter Amount -->
+                <div class="step" id="step2">
+                    <button class="back-step-btn" id="backStep2">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <h3>Enter Amount</h3>
+                    <div class="amount-input-wrapper">
+                        <input type="number" id="depositAmount" placeholder="0.00" min="10" step="0.01">
+                        <span class="input-currency">USDT</span>
+                    </div>
+                    <div class="quick-amounts">
+                        <button class="quick-amount" data-amount="50">50</button>
+                        <button class="quick-amount" data-amount="100">100</button>
+                        <button class="quick-amount" data-amount="500">500</button>
+                        <button class="quick-amount" data-amount="1000">1000</button>
+                    </div>
+                    <div class="amount-info">
+                        <div class="info-row">
+                            <span>Amount:</span>
+                            <span id="amountDisplay">0.00 USDT</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Network Fee:</span>
+                            <span id="feeDisplay">0.00 USDT</span>
+                        </div>
+                        <div class="info-row total">
+                            <span>Total:</span>
+                            <span id="totalDisplay">0.00 USDT</span>
+                        </div>
+                    </div>
+                    <button class="next-btn" id="nextStep2" disabled>Next</button>
+                </div>
+
+                <!-- Step 3: Deposit Address -->
+                <div class="step" id="step3">
+                    <button class="back-step-btn" id="backStep3">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <h3>Deposit Address</h3>
+                    <div class="qr-code-wrapper">
+                        <div class="qr-code" id="qrCode">
+                            <div class="qr-placeholder">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="address-wrapper">
+                        <input type="text" id="depositAddress" readonly>
+                        <button class="copy-btn" id="copyAddress">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Important Warning:</strong>
+                            <p>Send only USDT on <span id="selectedNetwork"></span> network to this address</p>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Transaction ID / Hash</label>
+                        <input type="text" id="txHash" placeholder="Enter transaction hash" style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 15px; color: #fff; width: 100%; font-size: 14px;">
+                        <small style="display: block; margin-top: 8px; opacity: 0.7; font-size: 12px;">Enter transaction hash to verify deposit</small>
+                    </div>
+                    <button class="confirm-btn" id="confirmDeposit">Confirm Deposit</button>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="step" id="step4">
+                    <div class="success-animation">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Deposit Request Received</h3>
+                    <p class="success-message">Amount will be added to your wallet after network confirmation</p>
+                    <div class="transaction-details">
+                        <div class="detail-row">
+                            <span>Network:</span>
+                            <span id="finalNetwork"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Amount:</span>
+                            <span id="finalAmount"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>TX Hash:</span>
+                            <span id="finalTxHash" style="font-size: 11px; opacity: 0.8;"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Status:</span>
+                            <span class="status pending">Under Review</span>
+                        </div>
+                    </div>
+                    <button class="done-btn" id="doneBtn">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scan QR Modal -->
+    <div class="modal" id="scanModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Scan QR Code</h2>
+                <button class="close-modal" onclick="document.getElementById('scanModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="scan-area">
+                <div class="scan-frame">
+                    <i class="fas fa-qrcode"></i>
+                    <p>Place QR code in frame</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div class="modal" id="withdrawModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Withdraw USDT</h2>
+                <button class="close-modal" onclick="document.getElementById('withdrawModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="withdraw-form">
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" id="withdrawAddress" placeholder="Enter wallet address">
+                </div>
+                <div class="form-group">
+                    <label>Network</label>
+                    <select id="withdrawNetwork">
+                        <option value="ERC20">ERC20</option>
+                        <option value="BEP20">BEP20</option>
+                        <option value="POLYGON">Polygon</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" id="withdrawAmount" placeholder="0.00" min="10">
+                </div>
+                <button class="confirm-btn" id="confirmWithdraw">Confirm Withdraw</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transfer Modal -->
+    <div class="modal" id="transferModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Transfer</h2>
+                <button class="close-modal" onclick="document.getElementById('transferModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="transfer-form">
+                <div class="form-group">
+                    <label>To</label>
+                    <input type="text" id="transferTo" placeholder="Username or email">
+                </div>
+                <div class="form-group">
+                    <label>المبلغ</label>
+                    <input type="number" id="transferAmount" placeholder="0.00" min="1">
+                </div>
+                <div class="form-group">
+                    <label>Note (optional)</label>
+                    <textarea id="transferNote" placeholder="Add note..."></textarea>
+                </div>
+                <button class="confirm-btn" id="confirmTransfer">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Swap Modal -->
+    <div class="modal" id="swapModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Swap Tokens</h2>
+                <button class="close-modal" onclick="document.getElementById('swapModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="swap-form">
+                <div class="swap-box">
+                    <label>From</label>
+                    <div class="swap-input">
+                        <input type="number" id="swapFromAmount" placeholder="0.00">
+                        <select id="swapFromToken">
+                            <option value="USDT-FLASH">USDT Flash</option>
+                            <option value="USDT">USDT</option>
+                            <option value="PEPE">PEPE</option>
+                            <option value="DOGE">DOGE</option>
+                            <option value="SHIB">SHIB</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="swap-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="swap-box">
+                    <label>To</label>
+                    <div class="swap-input">
+                        <input type="number" id="swapToAmount" placeholder="0.00" readonly>
+                        <select id="swapToToken">
+                            <option value="USDT">USDT</option>
+                            <option value="USDT-FLASH">USDT Flash</option>
+                            <option value="PEPE">PEPE</option>
+                            <option value="DOGE">DOGE</option>
+                            <option value="SHIB">SHIB</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="swap-rate">
+                    <span>Rate: </span>
+                    <span id="swapRate">1 USDT = 0.000022 BTC</span>
+                </div>
+                <button class="confirm-btn" id="confirmSwap">Swap</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-modal" onclick="document.getElementById('settingsModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item" id="securitySetting">
+                    <div class="setting-info">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Security</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="setting-item" id="notificationSetting">
+                    <div class="setting-info">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="setting-item" id="languageSetting">
+                    <div class="setting-info">
+                        <i class="fas fa-globe"></i>
+                        <span>Language</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="setting-item" id="backupSetting">
+                    <div class="setting-info">
+                        <i class="fas fa-key"></i>
+                        <span>Backup</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Modal -->
+    <div class="modal" id="securityModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Security</h2>
+                <button class="close-modal" onclick="document.getElementById('securityModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item" id="changePassword">
+                    <div class="setting-info">
+                        <i class="fas fa-lock"></i>
+                        <span>Change Password</span>
+                    </div>
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="setting-item" id="enable2FA">
+                    <div class="setting-info">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Two-Factor Authentication</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle2FA">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item" id="biometric">
+                    <div class="setting-info">
+                        <i class="fas fa-fingerprint"></i>
+                        <span>Fingerprint</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleBiometric">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Notifications</h2>
+                <button class="close-modal" onclick="document.getElementById('notificationModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Notifications</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="emailNotif" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-mobile"></i>
+                        <span>Push Notifications</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="pushNotif" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span>Transaction Notifications</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="txNotif" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Modal -->
+    <div class="modal" id="languageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Language</h2>
+                <button class="close-modal" onclick="document.getElementById('languageModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item lang-option" data-lang="ar">
+                    <div class="setting-info">
+                        <span>🇸🇦</span>
+                        <span>Arabic</span>
+                    </div>
+                    <i class="fas fa-check" style="color: #26a17b;"></i>
+                </div>
+                <div class="setting-item lang-option" data-lang="en">
+                    <div class="setting-info">
+                        <span>🇬🇧</span>
+                        <span>English</span>
+                    </div>
+                    <i class="fas fa-check" style="color: transparent;"></i>
+                </div>
+                <div class="setting-item lang-option" data-lang="fr">
+                    <div class="setting-info">
+                        <span>🇫🇷</span>
+                        <span>Français</span>
+                    </div>
+                    <i class="fas fa-check" style="color: transparent;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backup Modal -->
+    <div class="modal" id="backupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Backup</h2>
+                <button class="close-modal" onclick="document.getElementById('backupModal').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="backup-content">
+                <div class="backup-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Keep recovery phrase in a safe place</p>
+                </div>
+                <div class="seed-phrase" id="seedPhrase">
+                    <div class="seed-word">apple</div>
+                    <div class="seed-word">banana</div>
+                    <div class="seed-word">cherry</div>
+                    <div class="seed-word">dragon</div>
+                    <div class="seed-word">eagle</div>
+                    <div class="seed-word">forest</div>
+                    <div class="seed-word">garden</div>
+                    <div class="seed-word">house</div>
+                    <div class="seed-word">island</div>
+                    <div class="seed-word">jungle</div>
+                    <div class="seed-word">king</div>
+                    <div class="seed-word">lion</div>
+                </div>
+                <button class="confirm-btn" id="copySeed">
+                    <i class="fas fa-copy"></i> Copy Phrase
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Modal for Non-Registered Users -->
+    <div id="welcomeModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4" style="background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); display: none;">
+        <div class="relative max-w-2xl w-full rounded-3xl overflow-hidden" style="background: linear-gradient(135deg, #0f1419 0%, #1a2e1a 25%, #26a17b 50%, #1a8462 75%, #0e4b36 100%); box-shadow: 0 25px 80px rgba(38, 161, 123, 0.6), 0 0 100px rgba(52, 211, 153, 0.4); animation: modalSlideIn 0.5s ease-out;">
+            <!-- Close Button -->
+            <button onclick="closeWelcomeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all" style="backdrop-filter: blur(10px);">
+                <i class="fas fa-times text-white text-xl"></i>
+            </button>
+            
+            <!-- Content -->
+            <div class="p-8 md:p-12 text-center relative">
+                <!-- Animated Background -->
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute top-10 left-10 w-20 h-20 bg-emerald-400 rounded-full animate-ping"></div>
+                    <div class="absolute bottom-10 right-10 w-16 h-16 bg-teal-400 rounded-full animate-ping" style="animation-delay: 1s;"></div>
+                </div>
+                
+                <!-- Logo -->
+                <div class="relative mb-6">
+                    <div class="inline-block relative">
+                        <img src="img/usdt_cryptocurrencies_icon_188337.png" alt="USDT Flash" class="w-24 h-24 mx-auto" style="filter: drop-shadow(0 0 30px rgba(52, 211, 153, 0.8)); animation: logoFloat 3s ease-in-out infinite;">
+                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce" style="box-shadow: 0 0 20px rgba(251, 191, 36, 0.8);">
+                            <span class="text-white text-lg font-black">⚡</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Title -->
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-4" style="text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(52, 211, 153, 0.6);">
+                    🎁 Welcome Bonus!
+                </h2>
+                
+                <!-- Amount Badge -->
+                <div class="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 px-8 py-4 rounded-2xl mb-6" style="box-shadow: 0 10px 40px rgba(251, 191, 36, 0.5); animation: pulse 2s infinite;">
+                    <div class="text-5xl md:text-6xl font-black text-white" style="text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);">
+                        500 <span class="text-3xl">USDT FLASH</span>
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <p class="text-xl md:text-2xl text-emerald-100 mb-8 leading-relaxed" style="text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);">
+                    Create your free account now and receive <strong class="text-yellow-300">500 USDT FLASH</strong> instantly!
+                    Start your Web3 journey today.
+                </p>
+                
+                <!-- Features -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4" style="border: 1px solid rgba(255, 255, 255, 0.2);">
+                        <i class="fas fa-gift text-yellow-400 text-3xl mb-2"></i>
+                        <div class="text-white font-semibold">Free Bonus</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4" style="border: 1px solid rgba(255, 255, 255, 0.2);">
+                        <i class="fas fa-bolt text-yellow-400 text-3xl mb-2"></i>
+                        <div class="text-white font-semibold">Instant Delivery</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4" style="border: 1px solid rgba(255, 255, 255, 0.2);">
+                        <i class="fas fa-shield-alt text-yellow-400 text-3xl mb-2"></i>
+                        <div class="text-white font-semibold">100% Secure</div>
+                    </div>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="pages/register.html" class="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white px-10 py-4 rounded-2xl font-black text-xl transition-all transform hover:scale-105" style="box-shadow: 0 10px 40px rgba(251, 191, 36, 0.5);">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Create Account Now
+                    </a>
+                    <button onclick="closeWelcomeModal()" class="bg-white/10 hover:bg-white/20 text-white px-10 py-4 rounded-2xl font-bold text-xl transition-all" style="backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.3);">
+                        Maybe Later
+                    </button>
+                </div>
+                
+                <!-- Timer -->
+                <div class="mt-6 text-emerald-200 text-sm" style="text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);">
+                    ⏰ Limited time offer • Join 47,500+ users
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        #welcomeModal.active {
+            display: flex !important;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="../js/wallet.js"></script>
+</body>
+</html>
