@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار نافذة Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard-modal.css">
+    <script src="js/dashboard-modal.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .test-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .test-button.secondary {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .feature-list {
+            text-align: right;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .feature-list li {
+            margin: 10px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎯 اختبار نافذة Dashboard</h1>
+        <p>
+            اضغط على الزر أدناه لاختبار النافذة المنبثقة التي تظهر عند الضغط على 
+            "GO TO DASHBOARD" في صفحات الدفع
+        </p>
+        
+        <div class="feature-list">
+            <h3>✨ المميزات:</h3>
+            <ul>
+                <li>💼 خيار السحب إلى محفظتي</li>
+                <li>🌐 خيار السحب إلى محفظة خارجية</li>
+                <li>🎨 تصميم عصري وأنيق</li>
+                <li>📱 متجاوب مع جميع الأجهزة</li>
+                <li>⚡ تأثيرات حركية سلسة</li>
+            </ul>
+        </div>
+        
+        <button class="test-button" onclick="showDashboardModal()">
+            <i class="fas fa-user mr-2"></i>
+            فتح نافذة Dashboard
+        </button>
+        
+        <br>
+        
+        <button class="test-button secondary" onclick="testDirectNavigation()">
+            <i class="fas fa-wallet mr-2"></i>
+            اختبار التوجيه المباشر
+        </button>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee;">
+            <p style="font-size: 14px; color: #999;">
+                <strong>ملاحظة:</strong> هذه صفحة اختبار فقط. في الصفحات الحقيقية، 
+                سيتم التوجيه إلى الصفحات المناسبة.
+            </p>
+        </div>
+    </div>
+
+    <!-- Dashboard Modal -->
+    <div id="dashboardModal" class="dashboard-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeDashboardModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <h2>🎯 Select Withdrawal Destination</h2>
+                <p>اختر وجهة السحب</p>
+            </div>
+            
+            <div class="modal-options">
+                <div class="option-card" onclick="testWalletClick()">
+                    <div class="option-icon wallet">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="option-text">
+                        <h3>💼 Withdraw to My Wallet</h3>
+                        <p>السحب إلى محفظتي</p>
+                    </div>
+                </div>
+                
+                <div class="option-card" onclick="testExternalClick()">
+                    <div class="option-icon external">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <div class="option-text">
+                        <h3>🌐 Withdraw to External Wallet</h3>
+                        <p>السحب إلى محفظة خارجية</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testWalletClick() {
+            closeDashboardModal();
+            alert('✅ تم اختيار: السحب إلى محفظتي\n\nسيتم التوجيه إلى: pages/wallet.html');
+        }
+        
+        function testExternalClick() {
+            closeDashboardModal();
+            alert('✅ تم اختيار: السحب إلى محفظة خارجية\n\nسيتم التوجيه إلى: pages/account-info.html');
+        }
+        
+        function testDirectNavigation() {
+            alert('🔄 اختبار التوجيه المباشر\n\nفي الصفحات الحقيقية، سيتم التوجيه مباشرة إلى الصفحة المختارة.');
+        }
+    </script>
+</body>
+</html>
