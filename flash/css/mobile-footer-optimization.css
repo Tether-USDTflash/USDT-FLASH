@@ -1,0 +1,141 @@
+/* Mobile Footer Professional Optimization */
+
+@media (max-width: 768px) {
+    /* Footer container */
+    footer {
+        padding: 2rem 0 !important;
+    }
+    
+    /* Company info section */
+    footer .text-center.mb-12 {
+        margin-bottom: 2rem !important;
+        padding: 0 1rem;
+    }
+    
+    footer .text-center.mb-12 h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    footer .text-center.mb-12 p {
+        font-size: 0.875rem !important;
+        line-height: 1.4;
+    }
+    
+    /* Social media section */
+    footer .text-center.mb-12:nth-child(2) {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    footer .text-center.mb-12:nth-child(2) h4 {
+        font-size: 1.125rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Social media icons */
+    footer .flex.justify-center a {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        margin: 0.25rem !important;
+    }
+    
+    footer .flex.justify-center a i {
+        font-size: 1rem !important;
+    }
+    
+    /* Quick links grid */
+    footer .grid.grid-cols-2 {
+        gap: 1rem !important;
+        margin-bottom: 1.5rem !important;
+        padding: 0 1rem;
+    }
+    
+    footer .grid.grid-cols-2 h5 {
+        font-size: 1rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    footer .grid.grid-cols-2 ul {
+        gap: 0.5rem !important;
+    }
+    
+    footer .grid.grid-cols-2 ul li a {
+        font-size: 0.875rem !important;
+        padding: 0.25rem 0;
+        display: block;
+    }
+    
+    /* Copyright section */
+    footer .border-t {
+        padding-top: 1rem !important;
+        margin: 0 1rem;
+    }
+    
+    footer .border-t p {
+        font-size: 0.75rem !important;
+        line-height: 1.3;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    footer .border-t p:last-child {
+        font-size: 0.6875rem !important;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    footer {
+        padding: 1.5rem 0 !important;
+    }
+    
+    /* Company logo and title */
+    footer .flex.items-center.justify-center img {
+        width: 3rem !important;
+        height: 3rem !important;
+        margin-right: 0.75rem !important;
+    }
+    
+    footer .text-center.mb-12 h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Social media icons even smaller */
+    footer .flex.justify-center a {
+        width: 2.25rem !important;
+        height: 2.25rem !important;
+    }
+    
+    footer .flex.justify-center a i {
+        font-size: 0.875rem !important;
+    }
+    
+    /* Quick links single column on very small screens */
+    footer .grid.grid-cols-2 {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.75rem !important;
+        text-align: left;
+    }
+    
+    /* Copyright text even smaller */
+    footer .border-t p {
+        font-size: 0.6875rem !important;
+    }
+    
+    footer .border-t p:last-child {
+        font-size: 0.625rem !important;
+    }
+}
+
+/* Touch optimization */
+@media (hover: none) and (pointer: coarse) {
+    footer .flex.justify-center a {
+        min-width: 44px !important;
+        min-height: 44px !important;
+    }
+    
+    footer .grid.grid-cols-2 ul li a {
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        padding: 0.5rem 0 !important;
+    }
+}

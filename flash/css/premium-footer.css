@@ -1,0 +1,420 @@
+/* Premium Tether Footer Styles */
+
+:root {
+    --tether-green: #26a17b;
+    --tether-dark: #0f1419;
+    --tether-light: #f0fdf4;
+    --emerald-glow: rgba(38, 161, 123, 0.8);
+}
+
+.premium-footer {
+    background: linear-gradient(135deg, #0a0e27 0%, #0f1a2e 20%, #1a2845 40%, #26a17b 50%, #1a8462 60%, #0e4b36 80%, #051f1a 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 0;
+}
+
+/* Animated Tether Symbols */
+.premium-footer .tether-symbol {
+    animation: float-tether 6s ease-in-out infinite;
+}
+
+@keyframes float-tether {
+    0%, 100% { transform: translateY(0px); opacity: 0.15; }
+    50% { transform: translateY(-20px); opacity: 0.25; }
+}
+
+/* Social Media Icons */
+.social-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.3rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.social-icon:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.social-icon:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+/* Footer Links */
+.footer-link {
+    color: #d1d5db;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+}
+
+.footer-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #26a17b, #10b981);
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #a7f3d0;
+}
+
+.footer-link:hover::before {
+    width: 100%;
+}
+
+/* Stats Section */
+.footer-stat {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.footer-stat:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(38, 161, 123, 0.3);
+    transform: translateY(-5px);
+}
+
+.footer-stat .number {
+    background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.25rem;
+    font-weight: 900;
+}
+
+.footer-stat .line {
+    height: 4px;
+    background: linear-gradient(90deg, #26a17b, #10b981);
+    border-radius: 2px;
+    width: 32px;
+    transition: width 0.3s ease;
+    margin-top: 0.75rem;
+}
+
+.footer-stat:hover .line {
+    width: 100%;
+}
+
+/* Social Media Section */
+.social-section {
+    background: linear-gradient(135deg, rgba(38, 161, 123, 0.1), rgba(20, 184, 166, 0.1));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(38, 161, 123, 0.2);
+    border-radius: 1.5rem;
+    padding: 2rem;
+}
+
+/* Gradient Text */
+.gradient-text {
+    background: linear-gradient(135deg, #a7f3d0, #6ee7b7, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Support Channels Box */
+.support-channels {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.support-channels a {
+    display: flex;
+    align-items: center;
+    color: #e5e7eb;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.support-channels a:hover {
+    color: #a7f3d0;
+    padding-left: 0.5rem;
+}
+
+.support-channels i {
+    color: #a7f3d0;
+    margin-right: 0.75rem;
+    font-size: 1rem;
+}
+
+/* Animated Badge */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.badge-licensed {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.badge-iso {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+}
+
+.badge-verified {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .social-section {
+        flex-direction: column;
+    }
+    
+    .social-icons {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .footer-stat {
+        padding: 1rem;
+    }
+}
+
+/* Premium Social Media Cards */
+.social-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.social-card:hover::before {
+    left: 100%;
+}
+
+.social-card:hover {
+    transform: translateY(-8px) scale(1.05);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(38, 161, 123, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(38, 161, 123, 0.2);
+}
+
+.social-icon-large {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon-large::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease;
+}
+
+.social-card:hover .social-icon-large::after {
+    width: 120%;
+    height: 120%;
+}
+
+.social-card:hover .social-icon-large {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Enhanced Social Section */
+.social-section {
+    background: linear-gradient(135deg, 
+        rgba(15, 20, 25, 0.8) 0%, 
+        rgba(26, 46, 26, 0.7) 25%, 
+        rgba(38, 161, 123, 0.1) 50%, 
+        rgba(26, 132, 98, 0.7) 75%, 
+        rgba(14, 75, 54, 0.8) 100%
+    );
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(38, 161, 123, 0.3);
+    border-radius: 2rem;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(38, 161, 123, 0.8), 
+        rgba(52, 211, 153, 0.8), 
+        rgba(38, 161, 123, 0.8), 
+        transparent
+    );
+    animation: shimmer 3s linear infinite;
+}
+
+.social-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(38, 161, 123, 0.8), 
+        rgba(52, 211, 153, 0.8), 
+        rgba(38, 161, 123, 0.8), 
+        transparent
+    );
+    animation: shimmer 3s linear infinite reverse;
+}
+
+/* Animations */
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(26, 132, 123, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(26, 132, 123, 0.8); }
+}
+
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        transform: translate3d(0, -8px, 0);
+    }
+    70% {
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        transform: translate3d(0, -4px, 0);
+    }
+    90% {
+        transform: translate3d(0, -2px, 0);
+    }
+}
+
+/* Responsive Design for Social Cards */
+@media (max-width: 1024px) {
+    .social-section {
+        padding: 2rem;
+    }
+    
+    .social-card {
+        padding: 1rem;
+    }
+    
+    .social-icon-large {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+    
+    .social-icon-large i {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .social-section {
+        padding: 1.5rem;
+    }
+    
+    .social-card {
+        padding: 0.75rem;
+    }
+    
+    .social-icon-large {
+        width: 3rem;
+        height: 3rem;
+    }
+    
+    .social-icon-large i {
+        font-size: 1.25rem;
+    }
+}
