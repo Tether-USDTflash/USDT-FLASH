@@ -1,0 +1,44 @@
+/* تحسين استجابة أزرار الباقات للضغط السريع */
+
+/* إزالة أي تأخير في اللمس */
+.package-card button,
+.package-card .tether-action-button,
+.package-card .package-btn,
+.pricing-card button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    cursor: pointer;
+    transition: transform 0.05s ease, box-shadow 0.05s ease !important;
+}
+
+/* تأثير فوري عند الضغط */
+.package-card button:active,
+.package-card .tether-action-button:active,
+.package-card .package-btn:active,
+.pricing-card button:active {
+    transform: scale(0.97) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+}
+
+/* تحسين الاستجابة على الهواتف */
+@media (hover: none) and (pointer: coarse) {
+    .package-card button,
+    .package-card .tether-action-button,
+    .package-card .package-btn,
+    .pricing-card button {
+        min-height: 48px;
+        min-width: 48px;
+        padding: 14px 24px;
+    }
+}
+
+/* تأثير بصري فوري */
+.package-card button:active::before,
+.pricing-card button:active::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.2);
+    pointer-events: none;
+}

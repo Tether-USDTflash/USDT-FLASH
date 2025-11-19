@@ -1,0 +1,114 @@
+/* حركة هولوجرام احترافية للهيرو */
+
+/* تأثير المسح الهولوجرامي */
+#main-content::after {
+    content: '' !important;
+    position: absolute !important;
+    top: -100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(38, 161, 123, 0.3) 50%, 
+        transparent 100%) !important;
+    animation: hologramScan 4s ease-in-out infinite !important;
+    pointer-events: none !important;
+    z-index: 5 !important;
+}
+
+@keyframes hologramScan {
+    0% { top: -100%; }
+    50% { top: 100%; }
+    100% { top: -100%; }
+}
+
+/* توهج نابض للعنوان */
+#main-content h1 {
+    animation: hologramGlow 3s ease-in-out infinite !important;
+    color: #ffffff !important;
+}
+
+@keyframes hologramGlow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 20px rgba(38, 161, 123, 0.6)) 
+                drop-shadow(0 0 40px rgba(52, 211, 153, 0.3));
+    }
+    50% { 
+        filter: drop-shadow(0 0 40px rgba(38, 161, 123, 0.9)) 
+                drop-shadow(0 0 80px rgba(52, 211, 153, 0.5));
+    }
+}
+
+/* خطوط هولوجرامية متحركة */
+#main-content::before {
+    background-image: 
+        repeating-linear-gradient(0deg, 
+            transparent, 
+            transparent 2px, 
+            rgba(38, 161, 123, 0.1) 2px, 
+            rgba(38, 161, 123, 0.1) 4px) !important;
+    animation: hologramLines 20s linear infinite !important;
+}
+
+@keyframes hologramLines {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100px; }
+}
+
+/* جزيئات عائمة */
+.hologram-particles {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #34d399;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #34d399;
+    animation: particleFloat 8s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+@keyframes particleFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    25% { transform: translate(50px, -100px) scale(1.5); opacity: 0.8; }
+    50% { transform: translate(-30px, -200px) scale(1); opacity: 0.4; }
+    75% { transform: translate(70px, -150px) scale(1.2); opacity: 0.7; }
+}
+
+/* تأثير الاهتزاز الهولوجرامي */
+#main-content .hologram-card {
+    animation: hologramShake 0.3s ease-in-out infinite;
+}
+
+@keyframes hologramShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-1px); }
+    75% { transform: translateX(1px); }
+}
+
+/* وميض الأيقونات */
+#main-content i {
+    animation: iconFlicker 2s ease-in-out infinite;
+}
+
+@keyframes iconFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* تموج الأزرار */
+#main-content button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    opacity: 0;
+    animation: buttonRipple 3s ease-in-out infinite;
+}
+
+@keyframes buttonRipple {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 0.5; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
